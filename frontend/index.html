@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommProp Intel Map - Singapore Commercial Properties</title>
+    <meta name="description"
+        content="Interactive map of Singapore commercial and industrial property listings with agent intelligence">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏢</span>
+                <h1>CommProp Intel</h1>
+            </div>
+            <div class="header-stats" id="headerStats">
+                <div class="stat-item">
+                    <span class="stat-value" id="totalListings">-</span>
+                    <span class="stat-label">Listings</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="ownerListings">-</span>
+                    <span class="stat-label">Direct Owners</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="onMapCount">-</span>
+                    <span class="stat-label">On Map</span>
+                </div>
+            </div>
+            <button class="scrape-btn" id="scrapeBtn" onclick="triggerScrape()">
+                <span class="btn-icon">🔄</span>
+                <span>Fetch Latest</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Filters</h2>
+                <button class="toggle-sidebar" onclick="toggleSidebar()">◀</button>
+            </div>
+
+
+            <!-- Filter Controls -->
+            <div class="filter-section">
+                <h3>Date Range</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn" data-range="7" onclick="setDateRange(7)">7 Days</button>
+                    <button class="filter-btn active" data-range="30" onclick="setDateRange(30)">30 Days</button>
+                    <button class="filter-btn" data-range="all" onclick="setDateRange('all')">All</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Advertiser Type</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all"
+                        onclick="setAdvertiserFilter('all')">All</button>
+                    <button class="filter-btn owner-btn" data-filter="owner" onclick="setAdvertiserFilter('owner')">🟢
+                        Owner</button>
+                    <button class="filter-btn agent-btn" data-filter="agent" onclick="setAdvertiserFilter('agent')">🔵
+                        Agent</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Property Type</h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="typeFactory" checked onchange="applyFilters()">
+                        <span>Factory/Warehouse</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="typeOffice" checked onchange="applyFilters()">
+                        <span>Office</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="typeShop" checked onchange="applyFilters()">
+                        <span>Shop</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="typeOther" checked onchange="applyFilters()">
+                        <span>Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Transaction</h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="transSale" checked onchange="applyFilters()">
+                        <span>Sale</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="transRent" checked onchange="applyFilters()">
+                        <span>Rent</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Price Range</h3>
+                <div class="range-inputs">
+                    <input type="number" id="minPrice" placeholder="Min ($)" onchange="applyFilters()">
+                    <span>to</span>
+                    <input type="number" id="maxPrice" placeholder="Max ($)" onchange="applyFilters()">
+                </div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="analytics-panel">
+                <h3>📊 Quick Stats</h3>
+                <div class="chart-container">
+                    <canvas id="typeChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ownerAgentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top Advertisers -->
+            <div class="advertisers-panel">
+                <h3>🔥 Top Advertisers</h3>
+                <div id="topAdvertisersList" class="advertisers-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Map Container -->
+        <div class="map-wrapper">
+            <div id="map"></div>
+
+            <!-- Map Legend -->
+            <div class="map-legend">
+                <div class="legend-item">
+                    <span class="legend-marker owner-marker"></span>
+                    <span>Owner/Direct</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker agent-marker"></span>
+                    <span>Agent Listed</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker unknown-marker"></span>
+                    <span>Unknown</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Listing Detail Modal -->
+    <div class="modal" id="listingModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modalBody">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p id="loadingText">Loading listings...</p>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <script src="/static/app.js?v=3"></script>
+</body>
+
+</html>

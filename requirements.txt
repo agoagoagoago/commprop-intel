@@ -1,0 +1,20 @@
+# Core
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-dotenv>=1.0.0
+
+# Scraping
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+
+# AI
+google-generativeai>=0.8.0
+
+# Database
+sqlalchemy>=2.0.0
+
+# HTTP
+httpx>=0.25.0
+
+# For Render (needed for Playwright on Linux)
+greenlet>=2.0.0

@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@deck.gl/core": "^9.2.5",
+    "@deck.gl/layers": "^9.2.5",
+    "@deck.gl/react": "^9.2.5",
+    "@google/generative-ai": "^0.24.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.26",
+    "lucide-react": "^0.561.0",
+    "maplibre-gl": "^5.15.0",
+    "tailwind-merge": "^3.4.0"
+  }
+}

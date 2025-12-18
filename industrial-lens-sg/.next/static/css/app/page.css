@@ -1,0 +1,252 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/app/page.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
+.page_main__GlU4n {
+    min-height: 100vh;
+    padding: 24px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+}
+
+.page_header__kVzhN {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.page_title__3jonF {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page_subtitle__iAJUg {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-top: 8px;
+}
+
+.page_searchSection__zxYeG {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.page_mapPlaceholder__WiqNB {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px dashed rgba(148, 163, 184, 0.3);
+    border-radius: 16px;
+    padding: 80px 24px;
+    text-align: center;
+    color: #64748b;
+}
+
+.page_mapPlaceholder__WiqNB p {
+    margin: 8px 0;
+}
+
+.page_hint__cSjm5 {
+    font-size: 14px;
+    color: #475569;
+}
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/SearchBar.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/* SearchBar Component Styles */
+
+.SearchBar_searchContainer__6ZVMS {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.SearchBar_inputWrapper__HNTWw {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 4px;
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.SearchBar_inputWrapper__HNTWw:focus-within {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.SearchBar_searchInput__Q5N1K {
+    flex: 1 1;
+    background: transparent;
+    border: none;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #e2e8f0;
+    outline: none;
+}
+
+.SearchBar_searchInput__Q5N1K::placeholder {
+    color: #64748b;
+}
+
+.SearchBar_searchInput__Q5N1K:disabled {
+    opacity: 0.5;
+}
+
+.SearchBar_searchButton__dQG_1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+.SearchBar_searchButton__dQG_1:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.SearchBar_searchButton__dQG_1:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.SearchBar_clearButton__nsXzc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(239, 68, 68, 0.2);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.SearchBar_clearButton__nsXzc:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.SearchBar_spinner__j3OSy {
+    animation: SearchBar_spin__bMReN 1s linear infinite;
+}
+
+@keyframes SearchBar_spin__bMReN {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.SearchBar_message__e8Imq {
+    padding: 8px 12px;
+    background: rgba(99, 102, 241, 0.1);
+    border-left: 3px solid #6366f1;
+    border-radius: 0 8px 8px 0;
+    color: #a5b4fc;
+    font-size: 14px;
+}
+
+.SearchBar_error__1RmqF {
+    padding: 8px 12px;
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid #ef4444;
+    border-radius: 0 8px 8px 0;
+    color: #fca5a5;
+    font-size: 14px;
+}
+
+.SearchBar_filtersDisplay__c1Dmm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.SearchBar_filtersLabel__HdPar {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.SearchBar_filterChip__MVwJ8 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 16px;
+    font-size: 13px;
+    color: #34d399;
+}
+
+.SearchBar_historyContainer__alWnf {
+    margin-top: 8px;
+}
+
+.SearchBar_historySummary__jXdkK {
+    cursor: pointer;
+    font-size: 12px;
+    color: #64748b;
+    padding: 4px 0;
+}
+
+.SearchBar_historySummary__jXdkK:hover {
+    color: #94a3b8;
+}
+
+.SearchBar_historyList__f5mUS {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.SearchBar_historyItem__4_JLG {
+    display: flex;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.SearchBar_historyItem__4_JLG.SearchBar_user__5mKh3 {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.SearchBar_historyItem__4_JLG.SearchBar_assistant__rmt_s {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.SearchBar_historyRole__Z1qdy {
+    flex-shrink: 0;
+}
+
+.SearchBar_historyContent__Znmz4 {
+    color: #cbd5e1;
+    line-height: 1.4;
+}
