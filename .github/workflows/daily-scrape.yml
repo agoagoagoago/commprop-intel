@@ -1,0 +1,25 @@
+# Daily scraper workflow - triggers scrape endpoint on your Render app
+# Runs at 8 AM Singapore Time (0:00 UTC) every day
+
+name: Daily Scrape
+
+on:
+  schedule:
+    # 8 AM SGT = 0:00 UTC (SGT is UTC+8)
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger daily scrape
+        run: |
+          echo "Triggering daily scrape at $(date)"
+          # Replace YOUR_RENDER_URL with your actual Render URL after deployment
+          curl -X POST https://commprop-intel.onrender.com/api/scrape \
+            -H "Content-Type: application/json" \
+            --max-time 300 \
+            --retry 3 \
+            --retry-delay 30
+          echo "Scrape triggered successfully"
