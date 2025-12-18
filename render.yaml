@@ -1,20 +1,14 @@
-# Render.com deployment configuration
+# Render.com deployment configuration - Using Docker for Playwright support
 # See https://render.com/docs/yaml-spec
 
 services:
   - type: web
     name: commprop-intel
-    runtime: python
+    runtime: docker
     plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      playwright install chromium
-      playwright install-deps
-    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: GEMINI_API_KEY
-        sync: false  # You'll set this in Render dashboard
-      - key: PYTHON_VERSION
-        value: 3.11.0
+        sync: false  # Set this in Render dashboard
     healthCheckPath: /api/analytics/summary
     autoDeploy: true
